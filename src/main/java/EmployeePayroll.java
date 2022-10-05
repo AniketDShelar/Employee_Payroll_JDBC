@@ -16,22 +16,30 @@ public class EmployeePayroll {
             // mydbuser is password of database
             Statement statement;
             statement = connection.createStatement();
-            ResultSet resultSet;
-            resultSet = statement.executeQuery(
-                    "SELECT * FROM employee_payroll");
-//            if(b){
-//               resultSet = statement.getResultSet();
-//
-//            }
-            while (resultSet.next()) {
-                int id = resultSet.getInt("ID");
-                String name = resultSet.getString("Name").trim();
-                String salary = resultSet.getString("salary").trim();
-                String gender = resultSet.getString("Gender").trim();
-                String department = resultSet.getString("Department").trim();
-                System.out.println(name +" "+ salary +" "+ gender +" "+ department);
-                }
-            resultSet.close();
+            boolean result;
+            result = statement.execute("update employee_payroll set salary = 40000 where id = 1");
+            int id;
+            String name;
+            String salary;
+            String gender;
+            String department;
+            ResultSet rs = null;
+            if(result) {
+                rs = statement.getResultSet();
+
+//                while (rs.next()) {
+//                    id = rs.getInt("ID");
+//                    name = rs.getString("Name").trim();
+//                    salary = rs.getString("salary").trim();
+//                    gender = rs.getString("Gender").trim();
+//                    department = rs.getString("Department").trim();
+//                    System.out.println(name + " " + salary + " " + gender + " " + department);
+//                }
+            }else{
+                int count = statement.getUpdateCount();
+                System.out.println(count);
+            }
+//            rs.close();
             statement.close();
             connection.close();
         }
